@@ -1,0 +1,7 @@
+{
+  "name": "LoginCarmdDemo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
