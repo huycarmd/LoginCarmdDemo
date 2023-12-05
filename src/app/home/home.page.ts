@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Person } from '../login/login.page';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  data!: Person;
+  firstName! : string
+  lastName! : string
+
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.route.queryParams.subscribe(param => {
+      if (param && param['special']){
+        this.data = JSON.parse(param['special'])
+        this.firstName = this.data.firstName
+        this.lastName = this.data.lastName
+      }
+    })
+  }
 
   SignOut() {
     this.router.navigate(['/login']);
