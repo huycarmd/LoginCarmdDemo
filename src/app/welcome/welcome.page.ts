@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 
 @Component({
@@ -8,12 +9,18 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage {
-
-  constructor(private route:ActivatedRoute,private router:Router) { }
+  constructor(private route:ActivatedRoute,private router:Router, private storage : StorageMap) {
+  }
 
   goToLoginPage() {
-    this.router.navigate(['/login']);
-    // alert("Begin Login!")
+    this.storage.get("Users").subscribe((users) => {
+      console.log(users)
+      if (users != undefined){
+        this.router.navigate(['/home'])
+      } else {
+        this.router.navigate(['/login']);
+      }
+    })
   }
 
 }

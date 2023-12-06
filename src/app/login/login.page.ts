@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private storage : StorageMap
   ) {}
 
   Login() {
@@ -43,16 +45,17 @@ export class LoginPage {
           console.log(person);
           if (person.message.code == 0) {
             if (this.isRemember){
-
+              this.storage.set("Users", data).subscribe((users) => {})
+              console.log("Done save data")
             }
-            let navigationExtra: NavigationExtras = {
-              queryParams: {
-                special: JSON.stringify(person),
-              },
-            };
+            // let navigationExtra: NavigationExtras = {
+            //   queryParams: {
+            //     special: JSON.stringify(person),
+            //   },
+            // };
             this.emailVal = '';
             this.passwordVal = '';
-            this.router.navigate(['/home'], navigationExtra);
+            this.router.navigate(['/home']);
           } else {
             alert("Don't have data for this Email!");
           }
