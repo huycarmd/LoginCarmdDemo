@@ -7,17 +7,53 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <strong id="strong">Hello, {{ firstName }} {{ lastName }}</strong>
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first" *ngFor="let v of tutorials.tutorialVideos">
+      <ion-item slot="header" color="light">
+        <ion-label>{{v.name}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content" *ngFor="let i of v.videos">
+        <div (click)= "setOpen(true, i.link)">{{i.title}}</div>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 
-  <div id="container">
-    <strong>Hello, {{ firstName }} {{ lastName }}</strong>
-  </div>
-    <ion-col class="support">
-      <ion-button id="present-alert" color="danger" expand="block">Sign Out</ion-button>
-      <ion-alert trigger="present-alert" header="Do you want to Sign Out?" [buttons]="alertButtons"></ion-alert>
-    </ion-col>
+  
+  <ion-col class="support">
+    <ion-button id="present-alert" color="danger" expand="block">Sign Out</ion-button>
+    <ion-alert trigger="present-alert" header="Do you want to Sign Out?" [buttons]="alertButtons"></ion-alert>
+  </ion-col>
+
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false, '')">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+<!-- 
+        <video data-yt2html5="https://www.youtube.com/watch?v=H9_CC3CCGyo" id="myVideo" width="100%" autoplay="true" controls>
+        </video> -->
+        
+        <!-- <ion-buttons (click)="dismiss()" float-right padding-top padding-end>
+          <ion-icon slot="icon-only" name="close" color="light"></ion-icon>
+          </ion-buttons> -->
+          
+          <ion-row class="ion-align-items-center rowSection">
+            <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(urlVideo)" allow="autoplay;" frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </ion-row>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+  
 </ion-content>

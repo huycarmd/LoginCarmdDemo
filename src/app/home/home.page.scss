@@ -1,6 +1,6 @@
 #container {
   text-align: center;
-
+  margin: 10%;
   position: absolute;
   left: 0;
   right: 0;
@@ -8,9 +8,11 @@
   transform: translateY(-50%);
 }
 
-#container strong {
+#strong {
   font-size: 20px;
-  line-height: 26px;
+  align-items: center;
+  text-align: center;
+  margin: 20px;
 }
 
 #container p {
@@ -25,11 +27,9 @@
 #container a {
   text-decoration: none;
 }
-
-.support{
+.support {
   margin: auto;
-  position: absolute;
+  align-items: flex-end;
   text-align: center;
-  bottom: 20px;
-  width: 100%;
+  
 }
