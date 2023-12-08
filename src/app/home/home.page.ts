@@ -80,7 +80,9 @@ export class HomePage {
   
   setResult(ev : any, isOpen: boolean, link: string) {
     console.log(`Dismissed with role: ${ev.detail.role}`);
-    this.setOpen(isOpen, link)
+    if (ev.detail.role == 'confirm') {
+      this.setOpen(isOpen, link)
+    }
   }
 
   public alertButtons = [
