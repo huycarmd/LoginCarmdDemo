@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
   <strong id="strong">Hello, {{ firstName }} {{ lastName }}</strong>
   <ion-accordion-group expand="inset">
-    <ion-accordion value="first" *ngFor="let v of tutorials.tutorialVideos">
+    <ion-accordion *ngFor="let v of tutorials.tutorialVideos">
       <ion-item slot="header" color="light">
         <ion-label>{{v.name}}</ion-label>
       </ion-item>
