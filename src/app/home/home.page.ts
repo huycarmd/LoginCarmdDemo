@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Person } from '../login/login.page';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { HttpClient } from '@angular/common/http';
-import {DomSanitizer} from '@angular/platform-browser';
-
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,14 +19,14 @@ export class HomePage {
   tutorials!: Tutorial;
 
   urlVideo = ''
-
+  urlSafe: SafeResourceUrl | undefined;
 
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
     private storage : StorageMap,
     private http: HttpClient,
-    public sanitizer:DomSanitizer
+    public sanitizer:DomSanitizer,
     ) {
     storage.get("Users").subscribe((users) => {
       console.log(users)
@@ -42,25 +41,48 @@ export class HomePage {
       console.log(this.tutorials.message.code)
       console.log(this.tutorials.tutorialVideos.length)
     });
-
-    this.urlVideo = "https://youtu.be/H8jl8LplZag"
   }
-
-
 
   SignOut() {
     this.storage.delete('Users').subscribe(() => {});
     this.router.navigate(['/login']);
   }
 
-  // async playVideo() {
-
-  // }
-
   setOpen(isOpen: boolean, link: string) {
     this.isModalOpen = isOpen;
     console.log(link)
+    if (link == "https://www.youtube.com/watch?v=H9_CC3CCGyo"){
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/H9_CC3CCGyo")
+    } else {
+      console.log(this.urlVideo)
+      this.urlVideo = link.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlVideo)
+    }
   }
+
+  public openLinks = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Opening');
+      },
+    },
+  ];
+
+  
+  setResult(ev : any, isOpen: boolean, link: string) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+    this.setOpen(isOpen, link)
+  }
+
   public alertButtons = [
     {
       text: 'Cancel',

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Component({
@@ -20,11 +21,23 @@ export class LoginPage {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private storage : StorageMap
+    private storage : StorageMap,
+    private loadingCtrl: LoadingController
   ) {}
 
   Login() {
+    this.showLoading()
     this.GetUser()
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading...',
+      duration: 3000,
+      spinner: 'circles',
+    });
+
+    loading.present();
   }
 
   GetUser() {
