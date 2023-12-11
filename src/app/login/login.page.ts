@@ -23,10 +23,11 @@ export class LoginPage {
     private http: HttpClient,
     private storage : StorageMap,
     private loadingCtrl: LoadingController
-  ) {}
+  ) {
+
+  }
 
   Login() {
-    this.showLoading()
     this.GetUser()
   }
 
@@ -45,7 +46,8 @@ export class LoginPage {
       alert("Please type Email and Password to Login!")
       return 
     } else {
-      let headers = { 'Content-Type': 'application/json' };
+      this.showLoading()
+      let headers = { 'Content-Type': 'application/json' }; 
       return this.http
         .post(
           "https://dev-api-pro.repairsolutions.com/app1.0/api/users/login",
@@ -61,11 +63,6 @@ export class LoginPage {
               this.storage.set("Users", data).subscribe((users) => {})
               console.log("Done save data")
             }
-            // let navigationExtra: NavigationExtras = {
-            //   queryParams: {
-            //     special: JSON.stringify(person),
-            //   },
-            // };
             this.emailVal = '';
             this.passwordVal = '';
             this.router.navigate(['/home']);
