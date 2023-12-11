@@ -51,7 +51,7 @@ export class LoginPage {
       return this.http
         .post(
           "https://dev-api-pro.repairsolutions.com/app1.0/api/users/login",
-          { emailAddress: this.emailVal, password: this.passwordVal },
+          { emailAddress: this.emailVal, password: this.passwordVal },  
           { headers }
         )
         .toPromise()

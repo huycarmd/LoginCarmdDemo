@@ -36,12 +36,15 @@
           <ion-buttons slot="end">
             <ion-button (click)="setOpen(false, '')">Close</ion-button>
           </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-          <ion-content>
-            <iframe width="100%" height="100%" frameBorder="0" [src]="urlSafe"></iframe>
-        </ion-content>
+          </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <ion-content>
+              <!-- <iframe width="100%" height="100%" frameBorder="0" [src]="urlSafe"></iframe> -->
+              <ion-img src="https://img.youtube.com/vi/H8jl8LplZag/0.jpg"
+                alt="The Wisconsin State Capitol building in Madison, WI at night"></ion-img>
+              <ion-button id="playvideo" (click)="playingVideo()" color="danger" expand="block">Play Video</ion-button>
+            </ion-content>
       </ion-content>
     </ng-template>
   </ion-modal>

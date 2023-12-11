@@ -10,6 +10,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 })
 export class WelcomePage {
   constructor(private route:ActivatedRoute,private router:Router, private storage : StorageMap) {
+    this.goToLoginPage()
   }
 
   goToLoginPage() {

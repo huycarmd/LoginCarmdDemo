@@ -4,6 +4,7 @@ import { Person } from '../login/login.page';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { HttpClient } from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import { Browser } from '@capacitor/browser'
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -102,6 +103,11 @@ export class HomePage {
       },
     },
   ];
+
+  playingVideo() {
+    console.log("Video playing")
+    Browser.open({url: "https://www.youtube.com/embed/H9_CC3CCGyo"}) 
+  }
 
 }
 
