@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { CallAPIService } from '../call-api.service';
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,15 @@ export class LoginPage {
   passwordVal = ''
   isDisable = false
   isRemember = false
+  textErrorLogin = ''
 
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
     private storage : StorageMap,
-    private loadingCtrl: LoadingController
+    private callAPI : CallAPIService,
+    public loading : LoadingService
   ) {
 
   }
@@ -31,43 +33,32 @@ export class LoginPage {
     this.GetUser()
   }
 
-  async showLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Loading...',
-      duration: 3000,
-      spinner: 'circles',
-    });
-
-    loading.present();
-  }
-
   GetUser() {
-    if (this.emailVal == "" || this.passwordVal == ""){
-      alert("Please type Email and Password to Login!")
+    if (this.emailVal.search("@") == -1 || this.passwordVal.length < 5){
       return 
     } else {
-      this.showLoading()
+      this.loading.present()
       let headers = { 'Content-Type': 'application/json' }; 
-      return this.http
-        .post(
-          "https://dev-api-pro.repairsolutions.com/app1.0/api/users/login",
-          { emailAddress: this.emailVal, password: this.passwordVal },  
+      this.callAPI.callPOSTAPI(
+          'https://dev-api-pro.repairsolutions.com/app1.0/api/users/login',
+          { emailAddress: this.emailVal, password: this.passwordVal },
           { headers }
         )
-        .toPromise()
-        .then((data: any) => {
-          let person: Person = data;
-          console.log(person);
+        .subscribe((response: any) => {
+          let person: Person = response;
+          console.log(person)
           if (person.message.code == 0) {
             if (this.isRemember){
-              this.storage.set("Users", data).subscribe((users) => {})
+              this.storage.set("Users", response).subscribe((users) => {})
               console.log("Done save data")
             }
             this.emailVal = '';
             this.passwordVal = '';
+            this.loading.dismiss()
             this.router.navigate(['/home']);
           } else {
-            alert("Don't have data for this Email!");
+            this.textErrorLogin = person.message.description
+            this.loading.dismiss()
           }
         });
     }

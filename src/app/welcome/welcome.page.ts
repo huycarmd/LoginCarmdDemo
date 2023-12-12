@@ -9,19 +9,22 @@ import { StorageMap } from '@ngx-pwa/local-storage';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage {
-  constructor(private route:ActivatedRoute,private router:Router, private storage : StorageMap) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private storage: StorageMap
+  ) {
     this.goToLoginPage()
   }
 
   goToLoginPage() {
-    this.storage.get("Users").subscribe((users) => {
-      console.log(users)
-      if (users != undefined){
-        this.router.navigate(['/home'])
+    this.storage.get('Users').subscribe((users) => {
+      console.log(users);
+      if (users != undefined) {
+        this.router.navigate(['/home']);
       } else {
         this.router.navigate(['/login']);
       }
-    })
+    });
   }
-
 }

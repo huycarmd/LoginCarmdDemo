@@ -5,6 +5,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { HttpClient } from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import { Browser } from '@capacitor/browser'
+import { CallAPIService } from '../call-api.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -26,8 +27,8 @@ export class HomePage {
     private route: ActivatedRoute, 
     private router: Router, 
     private storage : StorageMap,
-    private http: HttpClient,
     public sanitizer:DomSanitizer,
+    public callapi : CallAPIService
     ) {
     storage.get("Users").subscribe((users) => {
       console.log(users)
@@ -37,15 +38,14 @@ export class HomePage {
       this.lastName = this.data.lastName
     })
 
-    http.get("https://dev-api-pro.repairsolutions.com/app1.1/api/supports/tutorials").toPromise().then((data: any) => {
-      this.tutorials = data
-      console.log(this.tutorials.message.code)
-      console.log(this.tutorials.tutorialVideos.length)
-    });
+    callapi.callGETAPI("https://dev-api-pro.repairsolutions.com/app1.1/api/supports/tutorials").subscribe((response : any) => {
+      this.tutorials = response
+    })
   }
 
   SignOut() {
     this.storage.delete('Users').subscribe(() => {});
+    console.log("delete acc")
     this.router.navigate(['/login']);
   }
 
@@ -60,6 +60,14 @@ export class HomePage {
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlVideo)
     }
   }
+  
+  setResult(ev : any, isOpen: boolean, link: string) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
+    if (ev.detail.role == 'confirm') {
+      this.setOpen(isOpen, link)
+    }
+  }
+
 
   public openLinks = [
     {
@@ -77,14 +85,6 @@ export class HomePage {
       },
     },
   ];
-
-  
-  setResult(ev : any, isOpen: boolean, link: string) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
-    if (ev.detail.role == 'confirm') {
-      this.setOpen(isOpen, link)
-    }
-  }
 
   public alertButtons = [
     {
