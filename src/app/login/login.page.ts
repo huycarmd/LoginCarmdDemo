@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { CallAPIService } from '../call-api.service';
 import { LoadingService } from '../loading.service';
+import { Users } from '../shared/users.model';
 
 @Component({
   selector: 'app-login',
@@ -45,9 +45,9 @@ export class LoginPage {
           { headers }
         )
         .subscribe((response: any) => {
-          let person: Person = response;
-          console.log(person)
-          if (person.message.code == 0) {
+          let user: Users = response;
+          console.log(user)
+          if (user.message.code == 0) {
             if (this.isRemember){
               this.storage.set("Users", response).subscribe((users) => {})
               console.log("Done save data")
@@ -57,31 +57,10 @@ export class LoginPage {
             this.loading.dismiss()
             this.router.navigate(['/home']);
           } else {
-            this.textErrorLogin = person.message.description
+            this.textErrorLogin = user.message.description
             this.loading.dismiss()
           }
         });
     }
   }
-}
-
-
-export interface Person {
-  id: string
-  firstName: string
-  lastName: string
-  emailAddress: string
-  zipCode: string
-  address1: string
-  address2: string
-  city: string
-  state: string
-  imageUrl: string
-  language: string
-  token: string
-  message: Message
-}
-export interface Message {
-  code: number
-  description: string
 }

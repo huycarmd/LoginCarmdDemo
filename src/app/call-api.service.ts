@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { data } from 'jquery';
-import { Person } from './login/login.page';
 
 @Injectable({
   providedIn: 'root',

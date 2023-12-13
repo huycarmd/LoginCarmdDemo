@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Person } from '../login/login.page';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { HttpClient } from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import { Browser } from '@capacitor/browser'
 import { CallAPIService } from '../call-api.service';
+import { Users } from '../shared/users.model';
+import { Tutorial } from '../shared/tutorials.model';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  data!: Person;
+  data!: Users;
   firstName! : string
   lastName! : string
 
@@ -112,24 +112,24 @@ export class HomePage {
 }
 
 
-export interface Tutorial {
-  tutorialVideos:   TutorialVideo[];
-  tutorialArticles: TutorialArticle[];
-  tutorialManuals:  TutorialArticle[];
-  message:          Message;
-}
+// export interface Tutorial {
+//   tutorialVideos:   TutorialVideo[];
+//   tutorialArticles: TutorialArticle[];
+//   tutorialManuals:  TutorialArticle[];
+//   message:          Message;
+// }
 
-export interface Message {
-  code:        number;
-  description: string;
-}
+// export interface Message {
+//   code:        number;
+//   description: string;
+// }
 
-export interface TutorialArticle {
-  title: string;
-  link:  string;
-}
+// export interface TutorialArticle {
+//   title: string;
+//   link:  string;
+// }
 
-export interface TutorialVideo {
-  name:   string;
-  videos: TutorialArticle[];
-}
+// export interface TutorialVideo {
+//   name:   string;
+//   videos: TutorialArticle[];
+// }
