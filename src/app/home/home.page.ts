@@ -23,6 +23,8 @@ export class HomePage {
   urlVideo = ''
   urlSafe: SafeResourceUrl | undefined;
 
+  srcImageVideo = ""
+
   constructor(
     private route: ActivatedRoute, 
     private router: Router, 
@@ -52,6 +54,8 @@ export class HomePage {
   setOpen(isOpen: boolean, link: string) {
     this.isModalOpen = isOpen;
     console.log(link)
+    this.srcImageVideo = "https://img.youtube.com/vi/" + link.split("/")[3] + "/0.jpg"
+    console.log(this.srcImageVideo)
     if (link == "https://www.youtube.com/watch?v=H9_CC3CCGyo"){
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/H9_CC3CCGyo")
     } else {
@@ -106,30 +110,7 @@ export class HomePage {
 
   playingVideo() {
     console.log("Video playing")
-    Browser.open({url: "https://www.youtube.com/embed/H9_CC3CCGyo"}) 
+    Browser.open({url: this.urlVideo}) 
   }
 
 }
-
-
-// export interface Tutorial {
-//   tutorialVideos:   TutorialVideo[];
-//   tutorialArticles: TutorialArticle[];
-//   tutorialManuals:  TutorialArticle[];
-//   message:          Message;
-// }
-
-// export interface Message {
-//   code:        number;
-//   description: string;
-// }
-
-// export interface TutorialArticle {
-//   title: string;
-//   link:  string;
-// }
-
-// export interface TutorialVideo {
-//   name:   string;
-//   videos: TutorialArticle[];
-// }
