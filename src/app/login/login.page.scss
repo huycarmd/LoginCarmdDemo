@@ -76,12 +76,21 @@ ion-footer {
 }   
 
 ion-checkbox {
-  --size: 32px;
+  --size: 28px;
   --checkbox-background-checked: #488aff;
-  margin: 10px;
+  margin-top: 20%;
+  margin-left: 5%;
 }
 
 ion-checkbox::part(container) {
   border-radius: 6px;
   border: 2px solid #488aff;
+}
+
+.container {
+  text-align: center;
+  margin-top: 20px;
+  position: absolute;
+  left: 10%;
+  right: 10%;
 }

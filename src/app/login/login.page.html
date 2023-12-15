@@ -3,31 +3,32 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Log In</ion-title>
+    <ion-title>LogIn</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input id="email" [(ngModel)]="emailVal" [ngModelOptions]="{standalone: true}" ngModel email type="email"></ion-input>
-      <!-- <ion-note slot="helper">Enter a valid email</ion-note> -->
-      <ion-note slot="error">Invalid email</ion-note>
-    </ion-item>
+    <div>
+      <form [formGroup]="loginForm" (ngSubmit)="Login()" novalidate>
+        <div class="form-group">
+          <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" class="form-control" formControlName="email" placeholder="Enter email"></ion-input>
+            <small class="form-text text-muted" *ngIf="loginForm.controls.email.touched">
+            </small>
+          </ion-item>
+        </div>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input minlength="5" id="password" [(ngModel)]="passwordVal" [ngModelOptions]="{standalone: true}" type="password"></ion-input>
-      <ion-note slot="error">Password must >= 5 Characters</ion-note>
-    </ion-item>
+        <div class="form-group">
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" class="form-control" formControlName="password" placeholder="Password"></ion-input>
+          </ion-item>
+        </div>
 
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" expand="block" (click)="Login()" [disabled]="emailVal === '' || passwordVal === ''">Sign In</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-checkbox [(ngModel)]="isRemember" [ngModelOptions]="{standalone: true}" >Remember Me</ion-checkbox>
+        <ion-button type="submit" class="container" [disabled]="!loginForm.valid">Submit</ion-button>
 
-    <ion-row>
-      <ion-label class="centerText">{{textErrorLogin}}</ion-label>
-    </ion-row>
+        <ion-checkbox class="form-control" formControlName="checkRemember">Remember me</ion-checkbox>
+
+      </form>
+    </div>
   </ion-content> 
