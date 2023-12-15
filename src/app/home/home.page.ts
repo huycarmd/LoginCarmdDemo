@@ -52,7 +52,6 @@ export class HomePage {
   }
 
   setOpen(isOpen: boolean, link: string) {
-    this.isModalOpen = isOpen;
     console.log(link)
     this.srcImageVideo = "https://img.youtube.com/vi/" + link.split("/")[3] + "/0.jpg"
     console.log(this.srcImageVideo)
@@ -63,6 +62,7 @@ export class HomePage {
       this.urlVideo = link.replace("https://youtu.be/", "https://www.youtube.com/embed/")
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlVideo)
     }
+    this.isModalOpen = isOpen;
   }
   
   setResult(ev : any, isOpen: boolean, link: string) {
