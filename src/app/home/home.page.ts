@@ -55,13 +55,7 @@ export class HomePage {
     console.log(link)
     this.srcImageVideo = "https://img.youtube.com/vi/" + link.split("/")[3] + "/0.jpg"
     console.log(this.srcImageVideo)
-    if (link == "https://www.youtube.com/watch?v=H9_CC3CCGyo"){
-      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/H9_CC3CCGyo")
-    } else {
-      console.log(this.urlVideo)
-      this.urlVideo = link.replace("https://youtu.be/", "https://www.youtube.com/embed/")
-      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlVideo)
-    }
+    this.urlVideo = link
     this.isModalOpen = isOpen;
   }
   
@@ -107,10 +101,4 @@ export class HomePage {
       },
     },
   ];
-
-  playingVideo() {
-    console.log("Video playing")
-    Browser.open({url: this.urlVideo}) 
-  }
-
 }

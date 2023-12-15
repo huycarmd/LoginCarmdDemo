@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { YoutubeComponent } from '../youtube/youtube.component';
+import { ChangeLinkYoutubePipe } from '../shared/changeyoutubelink.pipe';
 
 
 @NgModule({
@@ -15,6 +16,6 @@ import { YoutubeComponent } from '../youtube/youtube.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, YoutubeComponent]
+  declarations: [HomePage, YoutubeComponent, ChangeLinkYoutubePipe]
 })
 export class HomePageModule {}
