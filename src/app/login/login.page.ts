@@ -5,6 +5,7 @@ import { CallAPIService } from '../call-api.service';
 import { LoadingService } from '../loading.service';
 import { Users } from '../shared/users.model';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray, } from '@angular/forms';
+import { EmailValidator } from '../shared/validators/email.validator';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormArray, } from '@an
 })
 export class LoginPage {
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [EmailValidator.checkEmail ,Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     checkRemember: new FormControl(false),
   });

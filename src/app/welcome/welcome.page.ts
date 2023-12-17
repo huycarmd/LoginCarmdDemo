@@ -14,17 +14,23 @@ export class WelcomePage {
     private router: Router,
     private storage: StorageMap
   ) {
-    this.goToLoginPage()
-  }
-
-  goToLoginPage() {
-    this.storage.get('Users').subscribe((users) => {
-      console.log(users);
-      if (users != undefined) {
-        this.router.navigate(['/home']);
-      } else {
-        this.router.navigate(['/login']);
+    // this.goToLoginPage()
+    this.storage.get('FIRST').subscribe((first) => {
+      console.log(first);
+      if (first == "Welcome") {
+        this.storage.get('Users').subscribe((user) => {
+          if (user != undefined){
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/login'])
+          }
+        })
       }
     });
+  }
+  
+  goToLoginPage() {
+    this.storage.set('FIRST', 'Welcome').subscribe((users) => {});
+    this.router.navigate(['/login']);
   }
 }
