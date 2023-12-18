@@ -53,7 +53,8 @@ export class HomePage {
 
   setOpen(isOpen: boolean, link: string) {
     console.log(link)
-    this.srcImageVideo = "https://img.youtube.com/vi/" + link.split("/")[3] + "/0.jpg"
+    console.log(this.getIDfromURL(link))
+    this.srcImageVideo = "https://img.youtube.com/vi/" + this.getIDfromURL(link) + "/0.jpg"
     console.log(this.srcImageVideo)
     this.urlVideo = link
     this.isModalOpen = isOpen;
@@ -64,6 +65,17 @@ export class HomePage {
     if (ev.detail.role == 'confirm') {
       this.setOpen(isOpen, link)
     }
+  }
+
+  getIDfromURL(url : string) {
+    const regExp =
+      /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if (match && match[2].length === 11) {
+      return match[2];
+    }
+    console.log('The supplied URL is not a valid youtube URL');
+    return '';
   }
 
 
