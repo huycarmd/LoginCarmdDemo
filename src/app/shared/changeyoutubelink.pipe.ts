@@ -7,10 +7,6 @@ export class ChangeLinkYoutubePipe implements PipeTransform {
     transform(link : string) : string {
         console.log(link)
         console.log(this.getIDfromURL(link))
-        // if (link == "https://www.youtube.com/watch?v=H9_CC3CCGyo") {
-        //     return "https://www.youtube.com/embed/H9_CC3CCGyo"
-        // }
-        // return link.replace("https://youtu.be/", "https://www.youtube.com/embed/")
         return "https://www.youtube.com/embed/" + this.getIDfromURL(link)
     }
 
