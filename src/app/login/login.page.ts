@@ -13,9 +13,12 @@ import { EmailValidator } from '../shared/validators/email.validator';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  loginForm = new FormGroup({
-    email: new FormControl('', [EmailValidator.checkEmail ,Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+
+  formBuilder = new FormBuilder()
+
+  loginForm = this.formBuilder.group({
+    email: new FormControl('', [EmailValidator.checkEmail, Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
     checkRemember: new FormControl(false),
   });
 

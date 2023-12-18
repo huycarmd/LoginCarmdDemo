@@ -1,16 +1,15 @@
-import {FormControl} from '@angular/forms';
+import {FormControl, ValidationErrors, ValidatorFn} from '@angular/forms';
  
 export class EmailValidator {
-  static checkEmail(ct: FormControl): { [checkEmail: string]: boolean }{
-    var requiredDomains = "@yopmail.com";
+  static checkEmail(ct: FormControl): { [checkEmail: string]: boolean } | null{
+    var requiredDomains = "yopmail.com";
     var lowercaseValue = ct.value.toLowerCase();
-
 
     if (lowercaseValue.split("@")[1] == requiredDomains) {
       console.log(lowercaseValue.split("@")[1])
-      return {'checkEmail' : true}
+      return null
     }
-
-    return {'checkEmail' : false}
+    
+    return {'invalidEmail' : true}
   }
 }

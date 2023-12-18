@@ -13,10 +13,10 @@
           <ion-item lines="full">
             <ion-label position="floating">Email</ion-label>
             <ion-input type="email" class="form-control" formControlName="email" placeholder="Enter email"></ion-input>
-            <small class="form-text text-muted" *ngIf="loginForm.controls.email.touched">
-            </small>
+            <small class="form-text text-muted" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.hasError('invalidEmail')">Email is not support</small>
           </ion-item>
         </div>
+
 
         <div class="form-group">
           <ion-item lines="full">
